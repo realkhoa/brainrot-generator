@@ -188,7 +188,9 @@
             
             for (let char of str) {
                 const currentSet = template[char];
-                result += template[char.toString()][rand(template[char.toString()].length)] || "";
+
+                if (currentSet)
+                    result += template[char.toString()][rand(template[char.toString()].length)] || "";
             }
 
             return result;
