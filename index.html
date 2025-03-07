@@ -49,7 +49,7 @@
 
         <button onclick=onBrainrotClick()>🧠 Brainrot</button>
         <textarea rows="10" id="output"></textarea>
-        <button>📋 Copy</button>
+        <button id="copy-btn">📋 Copy</button>
     </div>
     <script>
         const template = {
@@ -81,6 +81,22 @@
             "z": ["Z", "z"],
             " ": [" "]
         }
+
+        const copyButton = document.getElementById("copy-btn");
+        const textarea = document.getElementById("output");
+
+        copyButton.addEventListener("click", function() {
+            textarea.select();
+            document.execCommand("copy");
+        
+        // Hiển thị thông báo
+        if (Notification.permission === "granted") {
+            new Notification("Thành công!", {
+                body: "Văn bản đã được sao chép vào clipboard.",
+                icon: "./mindset.png"
+            });
+        }
+        });
 
         function convertToASCII(input) {
             const vietnameseChars = {
