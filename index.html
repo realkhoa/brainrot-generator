@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        textarea {
+            width: 50vw;          /* Đặt chiều rộng của textarea */
+            font-size: 16px;       /* Tăng kích thước font chữ */
+            padding: 10px;         /* Thêm khoảng cách bên trong */
+            border: 2px solid #ccc; /* Thêm viền */
+            border-radius: 5px;    /* Bo tròn các góc */
+            overflow: hidden;       /* Ẩn thanh cuộn */
+            resize: none;          /* Không cho phép thay đổi kích thước bằng tay */
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button {
+            width: 150px;          /* Set the width of the button */
+            height: 50px;          /* Set the height of the button */
+            font-size: 18px;       /* Increase the font size */
+            padding: 10px;         /* Add padding for better spacing */
+            background-color: #4CAF50; /* Green background color */
+            color: white;          /* White text color */
+            border: none;          /* Remove default border */
+            border-radius: 5px;    /* Round the corners */
+            cursor: pointer;       /* Change cursor to pointer on hover */
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <textarea placeholder="Hay lam em brainrot di a" rows="10" id="input"></textarea>
+
+        <button onclick=onBrainrotClick()>🧠 Brainrot</button>
+        <textarea rows="10" id="output"></textarea>
+        <button>📋 Copy</button>
+    </div>
+    <script>
+        const template = {
+            "a": ["A", "a", "4"],
+            "b": ["B", "b", "6"],
+            "c": ["C", "c"],
+            "d": ["D", "d"],
+            "e": ["E", "e", "3"],
+            "f": ["F", "f"],
+            "g": ["G", "g", "9"],
+            "h": ["H", "h"],
+            "i": ["I", "i", "1"],
+            "j": ["J", "j"],
+            "k": ["K", "k"],
+            "l": ["L", "l", "1", "|"],
+            "m": ["M", "m"],
+            "n": ["N", "n"],
+            "o": ["O", "o", "0"],
+            "p": ["P", "p"],
+            "q": ["Q", "q"],
+            "r": ["R", "r"],
+            "s": ["S", "s", "5"],
+            "t": ["T", "t"],
+            "u": ["U", "u"],
+            "v": ["V", "v"],
+            "w": ["W", "w"],
+            "x": ["X", "x"],
+            "y": ["Y", "y"],
+            "z": ["Z", "z"],
+            " ": [" "]
+        }
+
+        function convertToASCII(input) {
+            const vietnameseChars = {
+                'à': 'a', 'á': 'a', 'ả': 'a', 'ã': 'a', 'ạ': 'a',
+                'â': 'a', 'ầ': 'a', 'ấ': 'a', 'ẩ': 'a', 'ẫ': 'a', 'ậ': 'a',
+                'ă': 'a', 'ằ': 'a', 'ắ': 'a', 'ẳ': 'a', 'ẵ': 'a', 'ặ': 'a',
+                'è': 'e', 'é': 'e', 'ẻ': 'e', 'ẽ': 'e', 'ẹ': 'e',
+                'ê': 'e', 'ề': 'e', 'ế': 'e', 'ể': 'e', 'ễ': 'e', 'ệ': 'e',
+                'ì': 'i', 'í': 'i', 'ỉ': 'i', 'ĩ': 'i', 'ị': 'i',
+                'ò': 'o', 'ó': 'o', 'ỏ': 'o', 'õ': 'o', 'ọ': 'o',
+                'ô': 'o', 'ồ': 'o', 'ố': 'o', 'ổ': 'o', 'ỗ': 'o', 'ộ': 'o',
+                'ơ': 'o', 'ờ': 'o', 'ớ': 'o', 'ở': 'o', 'ỡ': 'o', 'ợ': 'o',
+                'ù': 'u', 'ú': 'u', 'ủ': 'u', 'ũ': 'u', 'ụ': 'u',
+                'ư': 'u', 'ừ': 'u', 'ứ': 'u', 'ử': 'u', 'ữ': 'u', 'ự': 'u',
+                'ỳ': 'y', 'ý': 'y', 'ỷ': 'y', 'ỹ': 'y', 'ỵ': 'y',
+                'Đ': 'D', 'đ': 'd'
+            };
+
+            return input.split('').map(char => vietnameseChars[char] || char).join('').toLowerCase();
+        }
+
+        function onBrainrotClick(e) {
+            const input = document.getElementById("input").value;
+            const output = document.getElementById("output");
+            const brainrotText = brainrot(input);
+
+            output.value = brainrotText;
+        }
+
+        function rand(max) {
+            return Math.floor(Math.random() * max + 1) % max
+        }
+
+        function brainrot(str) {
+            str = convertToASCII(str);
+            let result = "";
+            
+            for (let char of str) {
+                const currentSet = template[char];
+                result += template[char.toString()][rand(template[char.toString()].length)];
+            }
+
+            return result;
+        }
+    </script>
+</body>
+</html>
