@@ -167,7 +167,7 @@
                 'Đ': 'D', 'đ': 'd'
             };
 
-            return input.split('').map(char => vietnameseChars[char] || char).join('').toLowerCase();
+            return input.toLowerCase().split('').map(char => vietnameseChars[char] || char).join('');
         }
 
         function onBrainrotClick(e) {
