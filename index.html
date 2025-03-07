@@ -4,151 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🧠 Brainrot Generator</title>
-
     <style>
-        textarea {
-            width: 50vw;          /* Đặt chiều rộng của textarea */
-            font-size: 16px;       /* Tăng kích thước font chữ */
-            padding: 10px;         /* Thêm khoảng cách bên trong */
-            border: 2px solid #ccc; /* Thêm viền */
-            border-radius: 5px;    /* Bo tròn các góc */
-            overflow: hidden;       /* Ẩn thanh cuộn */
-            resize: none;          /* Không cho phép thay đổi kích thước bằng tay */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
         }
 
         .container {
             display: flex;
             flex-direction: column;
-            align-content: center;
-            justify-content: center;
             align-items: center;
         }
 
+        textarea {
+            width: 50vw;        
+            font-size: 16px;     
+            padding: 10px;        
+            border: 2px solid #ccc; 
+            border-radius: 5px;   
+            overflow: auto;      
+            resize: none;          
+            margin-bottom: 10px;
+        }
+
         button {
-            width: 150px;          /* Set the width of the button */
-            height: 50px;          /* Set the height of the button */
-            font-size: 18px;       /* Increase the font size */
-            padding: 10px;         /* Add padding for better spacing */
-            background-color: #4CAF50; /* Green background color */
-            color: white;          /* White text color */
-            border: none;          /* Remove default border */
-            border-radius: 5px;    /* Round the corners */
-            cursor: pointer;       /* Change cursor to pointer on hover */
-            transition: background-color 0.3s; /* Smooth transition */
+            width: 150px;
+            height: 50px;
+            font-size: 18px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 5px;
         }
 
         button:hover {
-            background-color: #45a049; /* Darker green on hover */
+            background-color: #45a049;
         }
-
     </style>
 </head>
 <body>
     <div class="container">
         <textarea placeholder="Hay lam em brainrot di a" rows="10" id="input"></textarea>
-
-        <button onclick=onBrainrotClick()>🧠 Brainrot</button>
-        <textarea rows="10" id="output"></textarea>
+        <button onclick="onBrainrotClick()">🧠 Brainrot</button>
+        <textarea rows="10" id="output" readonly></textarea>
         <button id="copy-btn">📋 Copy</button>
     </div>
     <script>
         const template = {
-            "a": ["A", "a", "4"],
-            "b": ["B", "b", "6"],
-            "c": ["C", "c"],
-            "d": ["D", "d"],
-            "e": ["E", "e", "3"],
-            "f": ["F", "f"],
-            "g": ["G", "g", "9"],
-            "h": ["H", "h"],
-            "i": ["I", "i", "1"],
-            "j": ["J", "j"],
-            "k": ["K", "k"],
-            "l": ["L", "l", "1", "|"],
-            "m": ["M", "m"],
-            "n": ["N", "n"],
-            "o": ["O", "o", "0"],
-            "p": ["P", "p"],
-            "q": ["Q", "q"],
-            "r": ["R", "r"],
-            "s": ["S", "s", "5"],
-            "t": ["T", "t"],
-            "u": ["U", "u"],
-            "v": ["V", "v"],
-            "w": ["W", "w"],
-            "x": ["X", "x"],
-            "y": ["Y", "y"],
-            "z": ["Z", "z"],
-            " ": [" "],
-            "!": ["!"],
-            '"': ['"'],
-            '#': ['#'],
-            '$': ['$'],
-            '%': ['%'],
-            '&': ['&'],
-            "'": ["'"],
-            '(': ['('],
-            ')': [')'],
-            '*': ['*'],
-            '+': ['+'],
-            ',': [','],
-            '-': ['-'],
-            '.': ['.'],
-            '/': ['/'],
-            ':': [':'],
-            ';': [';'],
-            '<': ['<'],
-            '=': ['='],
-            '>': ['>'],
-            '?': ['?'],
-            '@': ['@'],
-            '[': ['['],
-            '\\': ['\\'],
-            ']': [']'],
-            '^': ['^'],
-            '_': ['_'],
-            '`': ['`'],
-            '{': ['{'],
-            '|': ['|'],
-            '}': ['}'],
-            '~': ['~']
+            "a": ["A", "a", "4"], "b": ["B", "b", "6"], "c": ["C", "c"],
+            "d": ["D", "d"], "e": ["E", "e", "3"], "f": ["F", "f"],
+            "g": ["G", "g", "9"], "h": ["H", "h"], "i": ["I", "i", "1"],
+            "j": ["J", "j"], "k": ["K", "k"], "l": ["L", "l", "1", "|"],
+            "m": ["M", "m"], "n": ["N", "n"], "o": ["O", "o", "0"],
+            "p": ["P", "p"], "q": ["Q", "q"], "r": ["R", "r"],
+            "s": ["S", "s", "5"], "t": ["T", "t"], "u": ["U", "u"],
+            "v": ["V", "v"], "w": ["W", "w"], "x": ["X", "x"],
+            "y": ["Y", "y"], "z": ["Z", "z"], " ": [" "],
+            "!": ["!"], '"': ['"'], '#': ['#'], '$': ['$'], 
+            '%': ['%'], '&': ['&'], "'": ["'"], '(': ['('], 
+            ')': [')'], '*': ['*'], '+': ['+'], ',': [','], 
+            '-': ['-'], '.': ['.'], '/': ['/'], ':': [':'], 
+            ';': [';'], '<': ['<'], '=': ['='], '>': ['>'], 
+            '?': ['?'], '@': ['@'], '[': ['['], '\\': ['\\'], 
+            ']': [']'], '^': ['^'], '_': ['_'], '`': ['`'], 
+            '{': ['{'], '|': ['|'], '}': ['}'], '~': ['~']
         };
 
-        const copyButton = document.getElementById("copy-btn");
-        const textarea = document.getElementById("output");
+        document.getElementById("copy-btn").addEventListener("click", copyToClipboard);
 
-        copyButton.addEventListener("click", function() {
-        if ("Notification" in window) {
-            if (Notification.permission === "granted") {
-                console.log("Notifications are already enabled.");
-            } else if (Notification.permission === "denied") {
-                console.log("Notifications are denied. Please enable them in your browser settings.");
-            } else {
-                Notification.requestPermission().then(permission => {
-                    if (permission === "granted") {
-                        console.log("Notification permission granted.");
-                    } else {
-                        console.log("Notification permission denied.");
-                    }
-                });
-            }
-        } else {
-            console.log("This browser does not support notifications.");
-        }
-    });
-
-        copyButton.addEventListener("click", function() {
+        function copyToClipboard() {
+            const textarea = document.getElementById("output");
             textarea.select();
             document.execCommand("copy");
-        
-        // Hiển thị thông báo
-        if (Notification.permission === "granted") {
-            new Notification("Thành công!", {
-                body: brainrot("Văn bản đã được sao chép vào clipboard"),
-                icon: "./mindset.png"
-            });
+            showNotification(brainrot("Thành công! Văn bản đã được sao chép vào clipboard"));
         }
-        });
+
+        function showNotification(title, body) {
+            if ("Notification" in window) {
+                if (Notification.permission === "granted") {
+                    new Notification(title, { body, icon: "./mindset.png" });
+                } else if (Notification.permission !== "denied") {
+                    Notification.requestPermission().then(permission => {
+                        if (permission === "granted") {
+                            new Notification(title, { body, icon: "./mindset.png" });
+                        }
+                    });
+                }
+            } else {
+                console.log("This browser does not support notifications.");
+            }
+        }
 
         function convertToASCII(input) {
             const vietnameseChars = {
@@ -166,20 +120,17 @@
                 'ỳ': 'y', 'ý': 'y', 'ỷ': 'y', 'ỹ': 'y', 'ỵ': 'y',
                 'Đ': 'D', 'đ': 'd'
             };
-
             return input.toLowerCase().split('').map(char => vietnameseChars[char] || char).join('');
         }
 
-        function onBrainrotClick(e) {
+        function onBrainrotClick() {
             const input = document.getElementById("input").value;
             const output = document.getElementById("output");
-            const brainrotText = brainrot(input);
-
-            output.value = brainrotText;
+            output.value = brainrot(input);
         }
 
         function rand(max) {
-            return Math.floor(Math.random() * max + 1) % max
+            return Math.floor(Math.random() * max);
         }
 
         function brainrot(str) {
@@ -188,11 +139,10 @@
             
             for (let char of str) {
                 const currentSet = template[char];
-
-                if (currentSet)
-                    result += template[char.toString()][rand(template[char.toString()].length)] || "";
+                if (currentSet) {
+                    result += currentSet[rand(currentSet.length)] || "";
+                } else result += char;
             }
-
             return result;
         }
     </script>
