@@ -79,11 +79,63 @@
             "x": ["X", "x"],
             "y": ["Y", "y"],
             "z": ["Z", "z"],
-            " ": [" "]
-        }
+            " ": [" "],
+            "!": ["!"],
+            '"': ['"'],
+            '#': ['#'],
+            '$': ['$'],
+            '%': ['%'],
+            '&': ['&'],
+            "'": ["'"],
+            '(': ['('],
+            ')': [')'],
+            '*': ['*'],
+            '+': ['+'],
+            ',': [','],
+            '-': ['-'],
+            '.': ['.'],
+            '/': ['/'],
+            ':': [':'],
+            ';': [';'],
+            '<': ['<'],
+            '=': ['='],
+            '>': ['>'],
+            '?': ['?'],
+            '@': ['@'],
+            '[': ['['],
+            '\\': ['\\'],
+            ']': [']'],
+            '^': ['^'],
+            '_': ['_'],
+            '`': ['`'],
+            '{': ['{'],
+            '|': ['|'],
+            '}': ['}'],
+            '~': ['~']
+        };
 
         const copyButton = document.getElementById("copy-btn");
         const textarea = document.getElementById("output");
+
+        copyButton.addEventListener("click", function() {
+        if ("Notification" in window) {
+            if (Notification.permission === "granted") {
+                console.log("Notifications are already enabled.");
+            } else if (Notification.permission === "denied") {
+                console.log("Notifications are denied. Please enable them in your browser settings.");
+            } else {
+                Notification.requestPermission().then(permission => {
+                    if (permission === "granted") {
+                        console.log("Notification permission granted.");
+                    } else {
+                        console.log("Notification permission denied.");
+                    }
+                });
+            }
+        } else {
+            console.log("This browser does not support notifications.");
+        }
+    });
 
         copyButton.addEventListener("click", function() {
             textarea.select();
@@ -92,7 +144,7 @@
         // Hiển thị thông báo
         if (Notification.permission === "granted") {
             new Notification("Thành công!", {
-                body: "Văn bản đã được sao chép vào clipboard.",
+                body: brainrot("Văn bản đã được sao chép vào clipboard"),
                 icon: "./mindset.png"
             });
         }
@@ -136,7 +188,7 @@
             
             for (let char of str) {
                 const currentSet = template[char];
-                result += template[char.toString()][rand(template[char.toString()].length)];
+                result += template[char.toString()][rand(template[char.toString()].length)] || "";
             }
 
             return result;
